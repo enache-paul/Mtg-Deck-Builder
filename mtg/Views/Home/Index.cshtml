@@ -1,0 +1,49 @@
+﻿@model X.PagedList.IPagedList<mtg_lib.Data.CardsCounted>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section scripts {
+
+}
+
+<html lang="en-US">
+
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="~/css/site.css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css"/>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/modal-popups/card-modal-popup.js"></script>
+    <script src="~/js/session/deck/save-card-to-session.js"></script>
+    <script src="~/js/site.js"></script>
+    <title>Login</title>
+</head>
+
+<body>
+<div class="text-center pt-xl-3 board">
+    <h1 class="display-4">Deck creation</h1>
+
+    <p> Search for cards.</p>
+
+    @Html.Partial("_FormForCards", new ActionAndControllerModel { ActionName = "Index", ControllerName = "Home" })
+
+    @Html.Partial("_Cards", Model)
+
+    @Html.Partial("_Navigation", new NavigationViewModel
+    {
+        CardsModel = Model,
+        ActionAndControllerModel = new ActionAndControllerModel { ActionName = "Index", ControllerName = "Home" }
+    })
+
+    @Html.Partial("_ModalPopup", new PopupViewModel { ActionId = "add-to-deck" })
+
+
+</div>
+
+</body>
+
+</html>

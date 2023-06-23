@@ -1,0 +1,56 @@
+@model SavedDecksVm
+
+@{
+    ViewData["Title"] = "Saved Decks";
+}
+
+@section scripts {
+
+}
+
+<html lang="en-US">
+
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="~/css/site.css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css"/>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/modal-popups/card-modal-popup.js"></script>
+    <title>Collection</title>
+</head>
+
+<body>
+<div class="text-center pt-xl-3 board">
+    <h1 class="display-4">Saved decks</h1>
+
+    @using (Html.BeginForm("LoadDecks", "SavedDecks", FormMethod.Get, new { @class = "saved-decks-options" }))
+    {
+        <select name="selectedDeck">
+            @foreach (var deck in Model.DecksSaved)
+            {
+                var selectedDeck = deck.Id == ViewBag.SelectedDeck ? "selected" : null;
+                <option value="@deck.Id" selected="@selectedDeck">@deck.Name</option>
+            }
+        </select>
+
+        <input type="submit" value="View Deck"/>
+    }
+
+    @Html.Partial("_FormForDecks", new ActionAndControllerModel { ActionName = "LoadDecks", ControllerName = "SavedDecks" })
+
+    @Html.Partial("_Cards", Model.CardsInDecks)
+
+    @Html.Partial("_Navigation", new NavigationViewModel
+    {
+        CardsModel = Model.CardsInDecks,
+        ActionAndControllerModel = new ActionAndControllerModel { ActionName = "LoadDecks", ControllerName = "SavedDecks" }
+    })
+
+    @Html.Partial("_ModalPopup", new PopupViewModel { ActionId = "" })
+</div>
+
+</body>
+
+</html>

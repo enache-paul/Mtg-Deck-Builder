@@ -1,0 +1,20 @@
+﻿@model NavigationViewModel
+@using X.PagedList.Mvc.Core
+
+@if (Model.CardsModel.Count > 0)
+{
+    @Html.PagedListPager(Model.CardsModel, page => 
+        Url.Action(Model.ActionAndControllerModel.ActionName, new
+    {
+        page,
+        filterNameSearchString = ViewBag.FilterNameSearchString,
+        manaCost = ViewBag.ManaCost,
+        rarity = ViewBag.Rarity,
+        pageSize = ViewBag.PageSize,
+        selectedDeck = ViewBag.SelectedDeck
+    }))
+}
+else if (ViewBag.FilterNameSearchString != null && Model.CardsModel.Count == 0)
+{
+    <p class="not-found">Not found</p>
+}

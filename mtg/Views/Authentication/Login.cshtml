@@ -1,0 +1,55 @@
+@model mtg.Models.AuthViewModel;
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css"/>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <title>Login</title>
+</head>
+
+<body class="gradient-background">
+<div class="page-container text-center pt-xl-3 board">
+
+    <h1 class="display-4">Log in to continue</h1>
+    <form class="form" asp-controller="Authentication" asp-action="Login" method="post">
+        <input type="email" placeholder="Email" asp-for="Email"/>
+        @Html.ValidationMessageFor(m => m.Email)
+        <input type="password" placeholder="Password" asp-for="Password"/>
+        @Html.ValidationMessageFor(m => m.Password)
+
+        <label>
+            <input type="checkbox" asp-for="KeepLoggedIn"/>
+            Keep me logged In.
+        </label>
+
+        <button type="submit">Login</button>
+
+
+        @if (ViewData["AuthenticateMessage"] != null)
+        {
+            <label>@ViewData["AuthenticateMessage"]</label>
+        }
+
+        <a asp-area="" asp-controller="Authentication" asp-action="Register">Or create a new account</a>
+    </form>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+﻿@model X.PagedList.IPagedList<mtg_lib.Data.CardsCounted>
+
+<ul id="card-results">
+    
+    @foreach (var card in Model)
+    {
+        <li>
+            <img class="card"
+                 
+                 src="@card.Card.OriginalImageUrl"
+                 alt="@card.Card.Name"
+                 title="@card.Card.Name"
+                 
+                 data-target="#myModal"
+                 data-toggle="modal"
+                 
+                 data-id="@card.Card.Id"
+                 data-name="@card.Card.Name"
+                 data-mana-cost="@card.Card.ManaCost"
+                 data-converted-mana-cost="@card.Card.ConvertedManaCost"
+                 data-type="@card.Card.Type"
+                 data-rarity-code="@card.Card.RarityCode"
+                 data-set-code="@card.Card.SetCode"
+                 data-text="@card.Card.Text"
+                 data-flavor="@card.Card.Flavor"
+                 data-artist-id="@card.Card.ArtistId"
+                 data-number="@card.Card.Number"
+                 data-power="@card.Card.Power"
+                 data-toughness="@card.Card.Toughness"
+                 data-layout="@card.Card.Layout"
+                 data-multiverse-id="@card.Card.MultiverseId"
+                 data-original-image-url="@card.Card.OriginalImageUrl"
+                 data-image="@card.Card.Image"
+                 data-original-text="@card.Card.OriginalText"
+                 data-original-type="@card.Card.OriginalType"
+                 data-mtg-id="@card.Card.MtgId"
+                 data-variations="@card.Card.Variations"
+                 data-created-at="@card.Card.CreatedAt"
+                 data-updated-at="@card.Card.UpdatedAt"
+                 data-count="@card.Count"
+                 
+            >
+            @if (card.Count != null)
+            {
+                <div class="counter">@card.Count</div>
+            }
+        </li>
+    }
+</ul>
+

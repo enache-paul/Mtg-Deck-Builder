@@ -1,0 +1,25 @@
+@model ActionAndControllerModel
+
+@using (Html.BeginForm(Model.ActionName, Model.ControllerName, FormMethod.Get, new {@class = "form-filter"}))
+    {
+        <p>
+            Search by name: @Html.TextBox("filterNameSearchString", null, new
+                            {
+                                @class = "filter-name filter"
+                            })
+        </p>
+
+        <p>
+            Cards per page: @Html.TextBox("pageSize", "5", new
+                            {
+                                @class = "page-size-input filter",
+                                type = "number",
+                                required = "required"
+                            })
+        </p>
+
+        
+        @Html.Hidden("selectedDeck", ViewBag.SelectedDeck, new{})
+        <input type="submit" value="Search"/>
+    }
+    

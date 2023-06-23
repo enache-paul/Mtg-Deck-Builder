@@ -1,0 +1,61 @@
+﻿@model X.PagedList.IPagedList<mtg_lib.Data.CardsCounted>
+
+@{
+    ViewData["Title"] = "Personal Collection";
+}
+
+
+@section scripts {
+
+}
+
+<html lang="en-US">
+
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="~/css/site.css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css"/>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/modal-popups/card-modal-popup.js"></script>
+    <script src="~/js/session/deck/remove-card-from-session.js"></script>
+    <title>Collection</title>
+</head>
+
+<body>
+<div class="text-center pt-xl-3 board">
+    <h1 class="display-4">Personal Collection</h1>
+
+    @using (Html.BeginForm("SaveDeckOnDb", "Session", FormMethod.Post))
+    {
+        <p>
+            Deck name: @Html.TextBox("deckName", null, new
+                       {
+                           @class = "deck-name",
+                           required = "required"
+                       })
+        </p>
+        <button type="submit" class="save-deck">Save deck</button>
+    }
+
+    @using (Html.BeginForm("DeleteSessionCards", "Session", FormMethod.Post))
+    {
+        <button type="submit" class="delete-deck">Delete deck</button>
+    }
+    @Html.Partial("_FormForDecks", new ActionAndControllerModel { ActionName = "Collection", ControllerName = "Deck" })
+
+    @Html.Partial("_Cards", Model)
+
+    @Html.Partial("_Navigation", new NavigationViewModel
+    {
+        CardsModel = Model,
+        ActionAndControllerModel = new ActionAndControllerModel { ActionName = "Collection", ControllerName = "Deck" }
+    })
+
+    @Html.Partial("_ModalPopup", new PopupViewModel { ActionId = "remove-from-deck" })
+</div>
+
+</body>
+
+</html>
